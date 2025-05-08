@@ -18,6 +18,11 @@ signal change_in_player_money(new_value)
 @export var calm_background_audio: AudioStreamPlayer
 @export var dramatic_background_audio: AudioStreamPlayer
 
+@export var location1: Marker3D
+@export var location2: Marker3D
+@export var location3: Marker3D
+@export var locationIndex: int = 0
+
 func spawn_bread():
 	pass
 
