@@ -1,14 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://cx7slkf4k2d73"]
+[gd_scene load_steps=4 format=3 uid="uid://cx7slkf4k2d73"]
 
 [ext_resource type="PackedScene" uid="uid://c58ybn53o5ela" path="res://crow.tscn" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://b5iq2hxm3xfmy" path="res://scripts/player.gd" id="1_i3pqv"]
 
-[node name="Player" type="Node3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_i3pqv"]
+size = Vector3(1, 0.431519, 1)
 
-[node name="CharacterBody3D" parent="." instance=ExtResource("1_4flbx")]
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_i3pqv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.284241, 0)
+shape = SubResource("BoxShape3D_i3pqv")
+
+[node name="crow" parent="." instance=ExtResource("1_4flbx")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-
-[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 1.78916e-07, 0.897452, -2.04656)
-
-[node name="Marker3D" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7736, 0.873483)
