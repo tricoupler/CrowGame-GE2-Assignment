@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cpnf4jl64naac"
+path="res://.godot/imported/Battle Of The Beast - The Soundings.mp3-ab1bb5ac6178bee5c896455fc7e32fa4.mp3str"
+
+[deps]
+
+source_file="res://assets/Battle Of The Beast - The Soundings.mp3"
+dest_files=["res://.godot/imported/Battle Of The Beast - The Soundings.mp3-ab1bb5ac6178bee5c896455fc7e32fa4.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

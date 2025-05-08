@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3 uid="uid://bckpb3tb1xcwm"]
+
+[ext_resource type="PackedScene" uid="uid://d0i7wanjtooem" path="res://town_import/Cotoon_land.FBX" id="1_80nbo"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_e2o6t"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_feb5d"]
+
+[sub_resource type="Sky" id="Sky_fc0e3"]
+sky_material = SubResource("ProceduralSkyMaterial_feb5d")
+
+[sub_resource type="Environment" id="Environment_7jktm"]
+background_mode = 2
+background_energy_multiplier = 0.65
+sky = SubResource("Sky_fc0e3")
+
+[node name="Game" type="Node3D"]
+
+[node name="Cotoon_land" parent="." instance=ExtResource("1_80nbo")]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 0, 0, 0)
+shape = SubResource("BoxShape3D_e2o6t")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_7jktm")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 43.946, 0)
+light_color = Color(0.926457, 0.89948, 0.762524, 1)
+light_energy = 4.72
+light_indirect_energy = 4.415
+light_specular = 0.495
+
+[node name="PickupTimer" type="Timer" parent="."]
+wait_time = 60.0
+autostart = true
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 685.0
+offset_bottom = 308.0
+
+[node name="Location1" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -42.498)
+
+[node name="Location2" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -51.6913, 1, -42.498)
+
+[node name="Location3" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.67499, 1, 46.4408)
