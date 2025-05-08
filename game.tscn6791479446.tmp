@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bckpb3tb1xcwm"]
+[gd_scene load_steps=14 format=3 uid="uid://bckpb3tb1xcwm"]
 
 [ext_resource type="PackedScene" uid="uid://d0i7wanjtooem" path="res://town_import/Cotoon_land.FBX" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://cx7slkf4k2d73" path="res://player.tscn" id="2_e2o6t"]
@@ -9,8 +9,6 @@
 [ext_resource type="Script" uid="uid://byuj0ctg0rjiu" path="res://crowspeed.gd" id="6_eow3j"]
 [ext_resource type="AudioStream" uid="uid://steoehtcx063" path="res://assets/camerashutter.mp3" id="8_j5wjh"]
 [ext_resource type="AudioStream" uid="uid://dpyy56i0mh1ho" path="res://assets/attentionallcrows.mp3" id="9_vef74"]
-[ext_resource type="AudioStream" uid="uid://bgv1mtiqeckuy" path="res://assets/Somnia Variation 3 relax and sleep - Reed Mathis.mp3" id="10_mfdv2"]
-[ext_resource type="AudioStream" uid="uid://cpnf4jl64naac" path="res://assets/Battle Of The Beast - The Soundings.mp3" id="11_iotsf"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_e2o6t"]
 size = Vector3(100, 1, 100)
@@ -58,9 +56,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.67499, 1, 46.4408)
 [node name="Player" parent="." instance=ExtResource("2_e2o6t")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 29.3586, 58.9805)
 
-[node name="GameManager" type="Node3D" parent="." node_paths=PackedStringArray("player", "speeding_ticket_timer", "GUI_speeding_ticket", "speeding_ticket_image", "speeding_ticket_camera_shutter", "bread_timer", "bread_notification_timer", "bread_notification_audio", "bread_text", "calm_background_audio", "dramatic_background_audio")]
+[node name="GameManager" type="Node3D" parent="." node_paths=PackedStringArray("player", "speeding_ticket_timer", "GUI_speeding_ticket", "speeding_ticket_image", "speeding_ticket_camera_shutter", "bread_timer", "bread_notification_timer", "bread_notification_audio", "bread_text")]
 script = ExtResource("3_feb5d")
 player = NodePath("../Player")
+player_money = null
 speeding_ticket_timer = NodePath("../SpeedingTicketTimer")
 GUI_speeding_ticket = NodePath("../SpeedingTicketImageTimer")
 speeding_ticket_image = NodePath("../Control/SpeedingTicket")
@@ -69,8 +68,6 @@ bread_timer = NodePath("../BreadTimer")
 bread_notification_timer = NodePath("../BreadNotificationTimer")
 bread_notification_audio = NodePath("../BreadNotificationAudio")
 bread_text = NodePath("../Control/PieceOfBreadSpotted")
-calm_background_audio = NodePath("../CalmBackground")
-dramatic_background_audio = NodePath("../DramaticBackground")
 
 [node name="Marker3D" type="Marker3D" parent="." node_paths=PackedStringArray("player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 29.9925, 61.254)
@@ -138,7 +135,6 @@ wait_time = 2.5
 
 [node name="SpeedingTicketCameraShutter" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_j5wjh")
-volume_db = -6.0
 
 [node name="BreadNotificationAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_vef74")
@@ -149,15 +145,6 @@ wait_time = 5.0
 [node name="BreadTimer" type="Timer" parent="."]
 wait_time = 15.0
 autostart = true
-
-[node name="CalmBackground" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("10_mfdv2")
-volume_db = -15.0
-autoplay = true
-
-[node name="DramaticBackground" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("11_iotsf")
-volume_db = -20.0
 
 [connection signal="change_in_player_money" from="GameManager" to="Control/Bucks" method="_on_game_manager_change_in_player_money"]
 [connection signal="timeout" from="SpeedingTicketTimer" to="GameManager" method="_on_speeding_ticket_timer_timeout"]
