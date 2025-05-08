@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://bckpb3tb1xcwm"]
+[gd_scene load_steps=10 format=3 uid="uid://bckpb3tb1xcwm"]
 
 [ext_resource type="PackedScene" uid="uid://d0i7wanjtooem" path="res://town_import/Cotoon_land.FBX" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://cx7slkf4k2d73" path="res://player.tscn" id="2_e2o6t"]
 [ext_resource type="Script" uid="uid://n27gx85qet2u" path="res://scripts/game_manager.gd" id="3_feb5d"]
 [ext_resource type="Script" uid="uid://bq2tjijed02bt" path="res://scripts/camera.gd" id="4_fc0e3"]
+[ext_resource type="Texture2D" uid="uid://c26p3va3epmd4" path="res://assets/caughtspeeding.png" id="5_7jktm"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_e2o6t"]
 size = Vector3(100, 1, 100)
@@ -43,12 +44,6 @@ light_specular = 0.495
 wait_time = 60.0
 autostart = true
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 685.0
-offset_bottom = 308.0
-
 [node name="Location1" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -42.498)
 
@@ -71,3 +66,40 @@ player = NodePath("../Player")
 
 [node name="Camera3D" type="Camera3D" parent="Marker3D"]
 transform = Transform3D(1, 0, 0, 0, 0.952963, 0.303085, 0, -0.303085, 0.952963, 0, 1.02464, 2.2648)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Bucks" type="RichTextLabel" parent="Control"]
+layout_mode = 0
+offset_left = 312.0
+offset_right = 1152.0
+offset_bottom = 128.0
+theme_override_font_sizes/normal_font_size = 50
+text = "50 Crow Bucks"
+horizontal_alignment = 2
+
+[node name="Speed" type="RichTextLabel" parent="Control"]
+offset_left = 592.0
+offset_top = 552.0
+offset_right = 1152.0
+offset_bottom = 648.0
+theme_override_font_sizes/normal_font_size = 50
+text = "0 km/h"
+horizontal_alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+layout_mode = 0
+offset_left = 672.0
+offset_top = 56.0
+offset_right = 1107.0
+offset_bottom = 590.0
+texture = ExtResource("5_7jktm")
+
+[node name="SpeedingTicketTimer" type="Timer" parent="."]
+wait_time = 30.0
+autostart = true
+
+[node name="SpeedingTicketImageTimer" type="Timer" parent="."]
+wait_time = 2.5
