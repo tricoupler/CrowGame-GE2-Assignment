@@ -1,10 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://bckpb3tb1xcwm"]
+[gd_scene load_steps=13 format=3 uid="uid://bckpb3tb1xcwm"]
 
 [ext_resource type="PackedScene" uid="uid://d0i7wanjtooem" path="res://town_import/Cotoon_land.FBX" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://cx7slkf4k2d73" path="res://player.tscn" id="2_e2o6t"]
 [ext_resource type="Script" uid="uid://n27gx85qet2u" path="res://scripts/game_manager.gd" id="3_feb5d"]
 [ext_resource type="Script" uid="uid://bq2tjijed02bt" path="res://scripts/camera.gd" id="4_fc0e3"]
 [ext_resource type="Texture2D" uid="uid://c26p3va3epmd4" path="res://assets/caughtspeeding.png" id="5_7jktm"]
+[ext_resource type="Script" uid="uid://cfahy75hioqno" path="res://crowbucks.gd" id="5_ryrav"]
+[ext_resource type="Script" uid="uid://byuj0ctg0rjiu" path="res://crowspeed.gd" id="6_eow3j"]
+[ext_resource type="AudioStream" uid="uid://steoehtcx063" path="res://assets/camerashutter.mp3" id="8_j5wjh"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_e2o6t"]
 size = Vector3(100, 1, 100)
@@ -56,8 +59,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.67499, 1, 46.4408)
 [node name="Player" parent="." instance=ExtResource("2_e2o6t")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 29.3586, 58.9805)
 
-[node name="GameManager" type="Node3D" parent="."]
+[node name="GameManager" type="Node3D" parent="." node_paths=PackedStringArray("player", "speeding_ticket_timer", "GUI_speeding_ticket", "speeding_ticket_image", "speeding_ticket_camera_shutter")]
 script = ExtResource("3_feb5d")
+player = NodePath("../Player")
+speeding_ticket_timer = NodePath("../SpeedingTicketTimer")
+GUI_speeding_ticket = NodePath("../SpeedingTicketImageTimer")
+speeding_ticket_image = NodePath("../Control/SpeedingTicket")
+speeding_ticket_camera_shutter = NodePath("../SpeedingTicketCameraShutter")
 
 [node name="Marker3D" type="Marker3D" parent="." node_paths=PackedStringArray("player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 29.9925, 61.254)
@@ -79,8 +87,10 @@ offset_bottom = 128.0
 theme_override_font_sizes/normal_font_size = 50
 text = "50 Crow Bucks"
 horizontal_alignment = 2
+script = ExtResource("5_ryrav")
 
-[node name="Speed" type="RichTextLabel" parent="Control"]
+[node name="Speed" type="RichTextLabel" parent="Control" node_paths=PackedStringArray("player")]
+layout_mode = 0
 offset_left = 592.0
 offset_top = 552.0
 offset_right = 1152.0
@@ -88,8 +98,11 @@ offset_bottom = 648.0
 theme_override_font_sizes/normal_font_size = 50
 text = "0 km/h"
 horizontal_alignment = 2
+script = ExtResource("6_eow3j")
+player = NodePath("../../Player")
 
-[node name="TextureRect" type="TextureRect" parent="Control"]
+[node name="SpeedingTicket" type="TextureRect" parent="Control"]
+visible = false
 layout_mode = 0
 offset_left = 672.0
 offset_top = 56.0
@@ -97,9 +110,29 @@ offset_right = 1107.0
 offset_bottom = 590.0
 texture = ExtResource("5_7jktm")
 
+[node name="PieceOfBreadSpotted" type="RichTextLabel" parent="Control"]
+visible = false
+layout_mode = 0
+offset_left = 136.0
+offset_top = 456.0
+offset_right = 1000.0
+offset_bottom = 536.0
+theme_override_colors/default_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 50
+text = "PIECE OF BREAD SPOTTED"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="SpeedingTicketTimer" type="Timer" parent="."]
-wait_time = 30.0
+wait_time = 10.0
 autostart = true
 
 [node name="SpeedingTicketImageTimer" type="Timer" parent="."]
 wait_time = 2.5
+
+[node name="SpeedingTicketCameraShutter" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_j5wjh")
+
+[connection signal="change_in_player_money" from="GameManager" to="Control/Bucks" method="_on_game_manager_change_in_player_money"]
+[connection signal="timeout" from="SpeedingTicketTimer" to="GameManager" method="_on_speeding_ticket_timer_timeout"]
+[connection signal="timeout" from="SpeedingTicketImageTimer" to="GameManager" method="_on_speeding_ticket_image_timer_timeout"]
