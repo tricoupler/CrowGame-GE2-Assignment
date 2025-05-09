@@ -1,8 +1,8 @@
 extends Node3D
 
-# Track our objects
 @export var player: CharacterBody3D
 signal change_in_player_money(new_value)
+signal new_bread_position(bread_position)
 @export var player_money: int = 50
 
 @export var speeding_ticket_timer: Timer
@@ -22,10 +22,34 @@ signal change_in_player_money(new_value)
 @export var location2: Marker3D
 @export var location3: Marker3D
 @export var locationIndex: int = 0
+@export var bread_scene: PackedScene
+var current_bread: Node3D
 
 func spawn_bread():
-	pass
+	if current_bread and is_instance_valid(current_bread):
+		current_bread.queue_free()
+	
+	current_bread = bread_scene.instantiate()
 
+	if(locationIndex == 0):
+		current_bread.global_position = location1.global_position
+		new_bread_position.emit(location1.global_position)
+	if(locationIndex == 1):
+		current_bread.global_position = location2.global_position
+		new_bread_position.emit(location2.global_position)
+	if(locationIndex == 2):
+		current_bread.global_position = location3.global_position
+		new_bread_position.emit(location3.global_position)
+
+	current_bread.bread_collected.connect(_on_bread_collected)
+	
+	add_child(current_bread)
+	locationIndex = (locationIndex + 1) % 3 
+
+func _on_bread_collected():
+	player_money = player_money + 50
+	change_in_player_money.emit(player_money)
+	
 func issue_speeding_ticket():
 	print('SPEEDING TICKET ISSUED!')
 	player_money = player_money - 100

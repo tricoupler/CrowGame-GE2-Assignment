@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://dp7r1o7oua26"]
+
+[ext_resource type="Script" uid="uid://bbrdtfbroty4r" path="res://scripts/boid.gd" id="1_dg2sk"]
+[ext_resource type="PackedScene" uid="uid://c58ybn53o5ela" path="res://crow.tscn" id="2_i75ld"]
+[ext_resource type="AudioStream" uid="uid://c86fyjf58xq2n" path="res://assets/crow.mp3" id="3_7x0tw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dg2sk"]
+size = Vector3(1, 0.75, 1)
+
+[node name="Boid" type="CharacterBody3D"]
+script = ExtResource("1_dg2sk")
+
+[node name="crow" parent="." instance=ExtResource("2_i75ld")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_7x0tw")
+volume_db = -8.0
+autoplay = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.297436, 0)
+shape = SubResource("BoxShape3D_dg2sk")

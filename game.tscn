@@ -1,16 +1,18 @@
-[gd_scene load_steps=16 format=3 uid="uid://bckpb3tb1xcwm"]
+[gd_scene load_steps=19 format=3 uid="uid://bckpb3tb1xcwm"]
 
 [ext_resource type="PackedScene" uid="uid://d0i7wanjtooem" path="res://town_import/Cotoon_land.FBX" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://cx7slkf4k2d73" path="res://player.tscn" id="2_e2o6t"]
 [ext_resource type="Script" uid="uid://n27gx85qet2u" path="res://scripts/game_manager.gd" id="3_feb5d"]
 [ext_resource type="Script" uid="uid://bq2tjijed02bt" path="res://scripts/camera.gd" id="4_fc0e3"]
+[ext_resource type="PackedScene" uid="uid://btqw1pkth0enb" path="res://bread.tscn" id="4_iotsf"]
 [ext_resource type="Texture2D" uid="uid://c26p3va3epmd4" path="res://assets/caughtspeeding.png" id="5_7jktm"]
-[ext_resource type="Script" uid="uid://cfahy75hioqno" path="res://crowbucks.gd" id="5_ryrav"]
-[ext_resource type="Script" uid="uid://byuj0ctg0rjiu" path="res://crowspeed.gd" id="6_eow3j"]
+[ext_resource type="Script" uid="uid://cfahy75hioqno" path="res://scripts/crowbucks.gd" id="5_ryrav"]
+[ext_resource type="Script" uid="uid://byuj0ctg0rjiu" path="res://scripts/crowspeed.gd" id="6_eow3j"]
 [ext_resource type="AudioStream" uid="uid://steoehtcx063" path="res://assets/camerashutter.mp3" id="8_j5wjh"]
 [ext_resource type="AudioStream" uid="uid://dpyy56i0mh1ho" path="res://assets/attentionallcrows.mp3" id="9_vef74"]
 [ext_resource type="AudioStream" uid="uid://bgv1mtiqeckuy" path="res://assets/Somnia Variation 3 relax and sleep - Reed Mathis.mp3" id="10_mfdv2"]
 [ext_resource type="AudioStream" uid="uid://cpnf4jl64naac" path="res://assets/Battle Of The Beast - The Soundings.mp3" id="11_iotsf"]
+[ext_resource type="PackedScene" uid="uid://dp7r1o7oua26" path="res://boid.tscn" id="13_lc2xo"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_e2o6t"]
 size = Vector3(100, 1, 100)
@@ -24,6 +26,14 @@ sky_material = SubResource("ProceduralSkyMaterial_feb5d")
 background_mode = 2
 background_energy_multiplier = 0.65
 sky = SubResource("Sky_fc0e3")
+
+[sub_resource type="Curve3D" id="Curve3D_iotsf"]
+closed = true
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 50, 25, 0, 0, 0, 0, 0, 0, 0, 0, 25, 50, 0, 0, 0, 0, 0, 0, -50, 25, 0, 0, 0, 0, 0, 0, 0, 0, 25, -50),
+"tilts": PackedFloat32Array(0, 0, 0, 0)
+}
+point_count = 4
 
 [node name="Game" type="Node3D"]
 
@@ -58,7 +68,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.67499, 1, 46.4408)
 [node name="Player" parent="." instance=ExtResource("2_e2o6t")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 29.3586, 58.9805)
 
-[node name="GameManager" type="Node3D" parent="." node_paths=PackedStringArray("player", "speeding_ticket_timer", "GUI_speeding_ticket", "speeding_ticket_image", "speeding_ticket_camera_shutter", "bread_timer", "bread_notification_timer", "bread_notification_audio", "bread_text", "calm_background_audio", "dramatic_background_audio")]
+[node name="GameManager" type="Node3D" parent="." node_paths=PackedStringArray("player", "speeding_ticket_timer", "GUI_speeding_ticket", "speeding_ticket_image", "speeding_ticket_camera_shutter", "bread_timer", "bread_notification_timer", "bread_notification_audio", "bread_text", "calm_background_audio", "dramatic_background_audio", "location1", "location2", "location3")]
 script = ExtResource("3_feb5d")
 player = NodePath("../Player")
 speeding_ticket_timer = NodePath("../SpeedingTicketTimer")
@@ -71,6 +81,10 @@ bread_notification_audio = NodePath("../BreadNotificationAudio")
 bread_text = NodePath("../Control/PieceOfBreadSpotted")
 calm_background_audio = NodePath("../CalmBackground")
 dramatic_background_audio = NodePath("../DramaticBackground")
+location1 = NodePath("../Location1")
+location2 = NodePath("../Location2")
+location3 = NodePath("../Location3")
+bread_scene = ExtResource("4_iotsf")
 
 [node name="Marker3D" type="Marker3D" parent="." node_paths=PackedStringArray("player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 29.9925, 61.254)
@@ -129,6 +143,14 @@ text = "PIECE OF BREAD SPOTTED"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="UserControlsHelper" type="RichTextLabel" parent="Control"]
+layout_mode = 0
+offset_top = 600.0
+offset_right = 632.0
+offset_bottom = 648.0
+text = "1 / 2 / 3 = Adjust Crow Speed 
+Shift = Speed up | Ctrl = Slow down | AD = Left Right | WS = Down Up"
+
 [node name="SpeedingTicketTimer" type="Timer" parent="."]
 wait_time = 10.0
 autostart = true
@@ -142,6 +164,9 @@ volume_db = -6.0
 
 [node name="BreadNotificationAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_vef74")
+
+[node name="BoidSeekTimer" type="Timer" parent="."]
+wait_time = 7.5
 
 [node name="BreadNotificationTimer" type="Timer" parent="."]
 wait_time = 5.0
@@ -159,8 +184,43 @@ autoplay = true
 stream = ExtResource("11_iotsf")
 volume_db = -20.0
 
+[node name="BoidPath" type="Path3D" parent="."]
+curve = SubResource("Curve3D_iotsf")
+
+[node name="Boid" parent="." node_paths=PackedStringArray("path", "boid_seek_timer") instance=ExtResource("13_lc2xo")]
+transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 50, 25, 0)
+path = NodePath("../BoidPath")
+boid_seek_timer = NodePath("../BoidSeekTimer")
+
+[node name="Boid4" parent="." node_paths=PackedStringArray("path", "boid_seek_timer") instance=ExtResource("13_lc2xo")]
+transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, -50, 25, 0)
+path = NodePath("../BoidPath")
+boid_seek_timer = NodePath("../BoidSeekTimer")
+
+[node name="Boid2" parent="." node_paths=PackedStringArray("path", "boid_seek_timer") instance=ExtResource("13_lc2xo")]
+transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0, 25, -50)
+path = NodePath("../BoidPath")
+boid_seek_timer = NodePath("../BoidSeekTimer")
+
+[node name="Boid3" parent="." node_paths=PackedStringArray("path", "boid_seek_timer") instance=ExtResource("13_lc2xo")]
+transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 114.144, 25, 50)
+path = NodePath("../BoidPath")
+boid_seek_timer = NodePath("../BoidSeekTimer")
+
 [connection signal="change_in_player_money" from="GameManager" to="Control/Bucks" method="_on_game_manager_change_in_player_money"]
+[connection signal="new_bread_position" from="GameManager" to="Boid" method="_on_game_manager_new_bread_position"]
+[connection signal="new_bread_position" from="GameManager" to="Boid4" method="_on_game_manager_new_bread_position"]
+[connection signal="new_bread_position" from="GameManager" to="Boid2" method="_on_game_manager_new_bread_position"]
+[connection signal="new_bread_position" from="GameManager" to="Boid3" method="_on_game_manager_new_bread_position"]
 [connection signal="timeout" from="SpeedingTicketTimer" to="GameManager" method="_on_speeding_ticket_timer_timeout"]
 [connection signal="timeout" from="SpeedingTicketImageTimer" to="GameManager" method="_on_speeding_ticket_image_timer_timeout"]
+[connection signal="timeout" from="BoidSeekTimer" to="Boid" method="_on_boid_seek_timer_timeout"]
+[connection signal="timeout" from="BoidSeekTimer" to="Boid4" method="_on_boid_seek_timer_timeout"]
+[connection signal="timeout" from="BoidSeekTimer" to="Boid2" method="_on_boid_seek_timer_timeout"]
+[connection signal="timeout" from="BoidSeekTimer" to="Boid3" method="_on_boid_seek_timer_timeout"]
 [connection signal="timeout" from="BreadNotificationTimer" to="GameManager" method="_on_bread_notification_timer_timeout"]
 [connection signal="timeout" from="BreadTimer" to="GameManager" method="_on_bread_timer_timeout"]
+[connection signal="timeout" from="BreadTimer" to="Boid" method="_on_bread_timer_timeout"]
+[connection signal="timeout" from="BreadTimer" to="Boid4" method="_on_bread_timer_timeout"]
+[connection signal="timeout" from="BreadTimer" to="Boid2" method="_on_bread_timer_timeout"]
+[connection signal="timeout" from="BreadTimer" to="Boid3" method="_on_bread_timer_timeout"]

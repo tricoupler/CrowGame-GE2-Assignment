@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://btqw1pkth0enb"]
+
+[ext_resource type="Script" uid="uid://lsxv68ia8e67" path="res://scripts/bread.gd" id="1_6f0e8"]
+[ext_resource type="PackedScene" uid="uid://bplnke4av5pfu" path="res://bread_import/slice_of_bread_raw.tscn" id="1_fcb2s"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tci0j"]
+size = Vector3(0.815171, 0.560739, 0.827471)
+
+[node name="Bread" type="Node3D"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+script = ExtResource("1_6f0e8")
+
+[node name="Slice_of_Bread_FBX" parent="." instance=ExtResource("1_fcb2s")]
+transform = Transform3D(-2.18557e-07, -5, 0, 5, -2.18557e-07, 0, 0, 0, 5, 0.368924, 0, 0)
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(5, 6.82121e-14, 0, -6.82121e-14, 5, 0, 0, 0, 5, -0.0563165, 1.34871, 0.0276327)
+shape = SubResource("BoxShape3D_tci0j")

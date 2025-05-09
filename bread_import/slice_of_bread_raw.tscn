@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bplnke4av5pfu"]
+
+[ext_resource type="PackedScene" uid="uid://qnm7gdpnqs30" path="res://bread_import/Slice_of_Bread_FBX.fbx" id="1_ibjj7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_byicp"]
+albedo_color = Color(0.700222, 0.536278, 0.195079, 1)
+
+[node name="Slice_of_Bread_FBX" instance=ExtResource("1_ibjj7")]
+
+[node name="BreadSlice2_OBJ_Mesh" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_byicp")
