@@ -9,6 +9,7 @@ Watch out! There are other crows, who also want your bread!
 Video Demo: 
 Primary research: https://youtube.com/shorts/xztPugdqSNc
 I learned that crows are very smart and chill creatures.
+The simulation does not feature crows flapping their wings, which they do in reality.
 
 The crows are boids who follow a path.
 Once bread spawns, the crows rush to it using seeking behaviour.
