@@ -23,7 +23,7 @@ Student Number: C21471486
 
 Class Group: TU857/4 Game Engines 2
 
-Video:
+Video: https://youtu.be/QId6IXzxUt0
 Primary Research: https://youtube.com/shorts/xztPugdqSNc
 
 Description of the project
