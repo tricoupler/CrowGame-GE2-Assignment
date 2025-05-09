@@ -2,8 +2,7 @@ Games Engines 2 Assignment
 "Crow Game"
 C21471486 Kacper Lysakowski
 
-
-Video Demo: 
+Video Demo:
 Primary research: https://youtube.com/shorts/xztPugdqSNc
 I learned that crows are very smart and chill creatures.
 The simulation does not feature crows flapping their wings, which they do in reality.
@@ -15,7 +14,6 @@ Music came from the youtube audio library.
 Crow model was generated with Meshy AI
 The town model came from turbosquid: https://www.turbosquid.com/3d-models/cartoon-land-2-976776
 Sound effects come from pixabay.
-
 
 Project Title
 
@@ -39,16 +37,20 @@ To run this game, you can use the .exe file provided (if you are on windows).
 List of classes/assets in the project
 boid.gd = Boid script.
 camera.gd = Camera Management script
-game
+game_manager.gd = Game Management script
+player.gd = Player Management script
+Other classes (bread.gd, crowbucks.gd, crowspeed.gd) manage small things in the game.
 
 References
 Music came from the youtube audio library.
 Crow model was generated with Meshy AI
 The town model came from turbosquid: https://www.turbosquid.com/3d-models/cartoon-land-2-976776
+Voice was generated with AI
 Sound effects come from pixabay.
 
 What I am most proud of in the assignment
 
-The best part of the assignment was the camera rotation. It looks very cool and I like how it helps everything come together. This combined with the statue and skybox helps bring about a cool synthwave aesthetic. The nodes are 3D spheres which rotate with the camera.
+I am most proud of the overall feel of the game. I like how there is a consistent soundscape to the game, and I like how it plays well with the mechanics of the game.
+
 What I learned
-I learned how to rotate objects around a point in Godot. This is a great technique that makes a project look great. I also learned how to generate 3D models with generative AI. The model was very vertex and face intensive, so it had to be decimated several times before being put into the project. Furthermore, there is a texture on the statue, but it is not very effective. Nevertheless, it was great to learn how textures work in game engines.
+I learned how to fully create a game with artifical life simulation in Godot. I learned how to procedurally make a creature that is realistic in just short lines of code.
